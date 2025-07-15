@@ -6,4 +6,5 @@ public interface UserService {
     void register(UserDTO dto, String appUrl);
     String confirmToken(String token);
     LoginResponseDTO login(String email, String password);
+    UserDTO getUserById(Long userId);
 }

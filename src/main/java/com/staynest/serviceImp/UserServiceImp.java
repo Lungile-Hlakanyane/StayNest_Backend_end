@@ -84,4 +84,19 @@ public class UserServiceImp implements UserService {
         }
         return new LoginResponseDTO("Login successful", user.getRole(), user.getId());
     }
+    @Override
+    public UserDTO getUserById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setFullName(user.getFullName());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
+        dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setGender(user.getGender());
+        dto.setPassword(null);
+        return dto;
+    }
+
 }

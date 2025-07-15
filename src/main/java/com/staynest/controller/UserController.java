@@ -1,5 +1,4 @@
 package com.staynest.controller;
-
 import com.staynest.DTO.LoginRequestDTO;
 import com.staynest.DTO.LoginResponseDTO;
 import com.staynest.DTO.UserDTO;
@@ -35,5 +34,10 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new LoginResponseDTO(e.getMessage(), null, request.getUserId()));
         }
+    }
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
+        UserDTO userDTO = userService.getUserById(userId);
+        return ResponseEntity.ok(userDTO);
     }
 }

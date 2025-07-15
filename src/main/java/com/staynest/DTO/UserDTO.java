@@ -1,12 +1,19 @@
 package com.staynest.DTO;
-import lombok.Getter;
-import lombok.Setter;
 
 public class UserDTO {
+    private long id;
     private String fullName;
     private String email;
     private String password;
     private String role;
+    private String phoneNumber;
+    private String gender;
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getFullName() {
         return fullName;
@@ -38,5 +45,21 @@ public class UserDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

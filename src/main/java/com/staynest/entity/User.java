@@ -18,6 +18,8 @@ public class User {
     private String role;
     private boolean isActive;
     private LocalDateTime createdAt;
+    private String phoneNumber;
+    private String gender;
     public User() {
     }
 
@@ -29,6 +31,22 @@ public class User {
         this.role = role;
         this.isActive = isActive;
         this.createdAt = createdAt;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public Long getId() {
