@@ -1,5 +1,6 @@
 package com.staynest.serviceImp;
 import com.staynest.DTO.LoginResponseDTO;
+import com.staynest.DTO.UpdateUserDTO;
 import com.staynest.DTO.UserDTO;
 import com.staynest.entity.User;
 import com.staynest.entity.VerificationToken;
@@ -97,6 +98,24 @@ public class UserServiceImp implements UserService {
         dto.setGender(user.getGender());
         dto.setPassword(null);
         return dto;
+    }
+    @Override
+    public void changePassword(Long userId, String currentPassword, String newPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+    @Override
+    public void updateUserProfile(UpdateUserDTO dto) {
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.setFullName(dto.getFullName());
+        user.setPhoneNumber(dto.getPhoneNumber());
+        userRepository.save(user);
     }
 
 }

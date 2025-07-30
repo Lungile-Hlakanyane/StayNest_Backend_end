@@ -1,7 +1,5 @@
 package com.staynest.controller;
-import com.staynest.DTO.LoginRequestDTO;
-import com.staynest.DTO.LoginResponseDTO;
-import com.staynest.DTO.UserDTO;
+import com.staynest.DTO.*;
 import com.staynest.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -39,5 +37,23 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
         UserDTO userDTO = userService.getUserById(userId);
         return ResponseEntity.ok(userDTO);
+    }
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordDTO dto) {
+        try {
+            userService.changePassword(dto.getUserId(), dto.getCurrentPassword(), dto.getNewPassword());
+            return ResponseEntity.ok("Password changed successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+    @PutMapping("/update-profile")
+    public ResponseEntity<String> updateUserProfile(@RequestBody UpdateUserDTO dto) {
+        try {
+            userService.updateUserProfile(dto);
+            return ResponseEntity.ok("Profile updated successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }

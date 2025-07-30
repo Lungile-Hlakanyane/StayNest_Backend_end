@@ -1,5 +1,6 @@
 package com.staynest.service;
 import com.staynest.DTO.LoginResponseDTO;
+import com.staynest.DTO.UpdateUserDTO;
 import com.staynest.DTO.UserDTO;
 
 public interface UserService {
@@ -7,4 +8,6 @@ public interface UserService {
     String confirmToken(String token);
     LoginResponseDTO login(String email, String password);
     UserDTO getUserById(Long userId);
+    void changePassword(Long userId, String currentPassword, String newPassword);
+    void updateUserProfile(UpdateUserDTO dto);
 }
