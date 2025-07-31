@@ -117,5 +117,9 @@ public class UserServiceImp implements UserService {
         user.setPhoneNumber(dto.getPhoneNumber());
         userRepository.save(user);
     }
+    @Override
+    public long countTotalUsers() {
+        return userRepository.count();
+    }
 
 }

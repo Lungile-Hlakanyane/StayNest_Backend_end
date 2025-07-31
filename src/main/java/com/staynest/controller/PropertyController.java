@@ -71,6 +71,9 @@ public class PropertyController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
+    @GetMapping("/count-all")
+    public ResponseEntity<Long> countAllProperties() {
+        long count = propertyService.countAllProperties();
+        return ResponseEntity.ok(count);
+    }
 }

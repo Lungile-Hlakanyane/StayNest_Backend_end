@@ -76,4 +76,9 @@ public class PropertyServiceImp implements PropertyService {
             return false;
         }
     }
+
+    @Override
+    public long countAllProperties() {
+        return propertyRepository.count();
+    }
 }

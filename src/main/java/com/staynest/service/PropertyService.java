@@ -11,5 +11,5 @@ public interface PropertyService {
     boolean deleteProperty(Long propertyId);
     Property getPropertyById(Long id);
     boolean updateProperty(Long id, PropertyDTO dto);
-
+    long countAllProperties();
 }

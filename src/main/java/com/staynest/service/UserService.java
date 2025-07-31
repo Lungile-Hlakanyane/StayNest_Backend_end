@@ -10,4 +10,5 @@ public interface UserService {
     UserDTO getUserById(Long userId);
     void changePassword(Long userId, String currentPassword, String newPassword);
     void updateUserProfile(UpdateUserDTO dto);
+    long countTotalUsers();
 }
