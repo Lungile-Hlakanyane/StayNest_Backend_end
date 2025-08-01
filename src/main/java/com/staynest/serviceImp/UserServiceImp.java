@@ -8,10 +8,14 @@ import com.staynest.mapper.UserMapper;
 import com.staynest.repository.UserRepository;
 import com.staynest.repository.VerificationTokenRepository;
 import com.staynest.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -76,6 +80,10 @@ public class UserServiceImp implements UserService {
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
         System.out.println("DB password hash: " + user.getPassword());
 
+        if(user.isBlocked()){
+            throw new RuntimeException("User is blocked. Contact support.");
+        }
+
         if (!user.isActive()) {
             throw new RuntimeException("Account is not activated. Please check your email.");
         }
@@ -86,19 +94,25 @@ public class UserServiceImp implements UserService {
         return new LoginResponseDTO("Login successful", user.getRole(), user.getId());
     }
     @Override
-    public UserDTO getUserById(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        UserDTO dto = new UserDTO();
-        dto.setId(user.getId());
-        dto.setFullName(user.getFullName());
-        dto.setEmail(user.getEmail());
-        dto.setRole(user.getRole());
-        dto.setPhoneNumber(user.getPhoneNumber());
-        dto.setGender(user.getGender());
-        dto.setPassword(null);
-        return dto;
+    public UserDTO getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        return userMapper.toDTO(user); // ✅ Make sure this is used
     }
+//    public UserDTO getUserById(Long userId) {
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//        UserDTO dto = new UserDTO();
+//        dto.setId(user.getId());
+//        dto.setFullName(user.getFullName());
+//        dto.setEmail(user.getEmail());
+//        dto.setRole(user.getRole());
+//        dto.setPhoneNumber(user.getPhoneNumber());
+//        dto.setGender(user.getGender());
+//        dto.setPassword(null);
+//        return dto;
+//    }
     @Override
     public void changePassword(Long userId, String currentPassword, String newPassword) {
         User user = userRepository.findById(userId)
@@ -122,4 +136,39 @@ public class UserServiceImp implements UserService {
         return userRepository.count();
     }
 
+    @Override
+    public List<UserDTO> getAllUsers() {
+        List<User> userEntities = userRepository.findAll();
+        return userEntities.stream().map(this::convertToDTO).toList();
+    }
+
+    @Transactional
+    @Override
+    public void deleteUserById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        try {
+            tokenRepository.deleteByUser(user); // optional, depending on your cascade setup
+            userRepository.delete(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Foreign key constraint violation. Cannot delete user.");
+        }
+    }
+
+    @Override
+    public void setUserBlocked(Long userId, boolean blocked) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        user.setBlocked(blocked);
+        userRepository.save(user);
+    }
+
+    private UserDTO convertToDTO(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setFullName(user.getFullName());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
+        return dto;
+    }
 }

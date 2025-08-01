@@ -1,10 +1,15 @@
 package com.staynest.controller;
 import com.staynest.DTO.*;
 import com.staynest.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/auth")
 public class UserController {
@@ -61,4 +66,33 @@ public class UserController {
         long count = userService.countTotalUsers();
         return ResponseEntity.ok(count);
     }
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<UserDTO> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
+    @DeleteMapping("/user/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+        try {
+            userService.deleteUserById(userId);
+            return ResponseEntity.ok("User deleted successfully.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Cannot delete user due to related data.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+    @PutMapping("/user/{userId}/block")
+    public ResponseEntity<String> blockUser(@PathVariable Long userId, @RequestParam boolean block) {
+        try {
+            userService.setUserBlocked(userId, block);
+            return ResponseEntity.ok("User " + (block ? "blocked" : "unblocked") + " successfully.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+    }
+
 }

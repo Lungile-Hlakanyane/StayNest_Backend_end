@@ -17,13 +17,15 @@ public class User {
     private String password;
     private String role;
     private boolean isActive;
+    private boolean isBlocked = false;
     private LocalDateTime createdAt;
     private String phoneNumber;
     private String gender;
+
     public User() {
     }
 
-    public User(Long id, String fullName, String email, String password, String role, boolean isActive, LocalDateTime createdAt) {
+    public User(Long id, String fullName, String email, String password, String role, boolean isActive, LocalDateTime createdAt,boolean isBlocked) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -31,6 +33,15 @@ public class User {
         this.role = role;
         this.isActive = isActive;
         this.createdAt = createdAt;
+        this.isBlocked = isBlocked;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
     }
 
     public String getPhoneNumber() {

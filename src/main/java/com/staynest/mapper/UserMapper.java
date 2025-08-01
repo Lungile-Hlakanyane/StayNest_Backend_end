@@ -14,9 +14,24 @@ public class UserMapper {
         user.setRole(dto.getRole());
         user.setPhoneNumber(dto.getPhoneNumber());
         user.setGender(dto.getGender());
-        user.setActive(false);
+        user.setActive(dto.getActive() != null ? dto.getActive() : false);
+        user.setBlocked(dto.getBlocked() != null ? dto.getBlocked() : false);
         user.setCreatedAt(LocalDateTime.now());
         return user;
+    }
+
+    public UserDTO toDTO(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setFullName(user.getFullName());
+        dto.setEmail(user.getEmail());
+        dto.setPassword(user.getPassword()); // Be cautious with exposing password
+        dto.setRole(user.getRole());
+        dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setGender(user.getGender());
+        dto.setActive(user.isActive());
+        dto.setBlocked(user.isBlocked());
+        return dto;
     }
 }
 

@@ -8,6 +8,20 @@ public class UserDTO {
     private String role;
     private String phoneNumber;
     private String gender;
+    private Boolean active;
+    private Boolean blocked;
+    public Boolean getBlocked() {
+        return blocked;
+    }
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
+    }
+    public Boolean getActive() {
+        return active;
+    }
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
     public long getId() {
         return id;
     }
