@@ -11,9 +11,18 @@ public class Announcement {
     private String title;
     private String message;
     private LocalDate date;
-
+    @Column(nullable = false)
+    private String recipient;
     public Announcement() {
         this.date = LocalDate.now();
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 
     public Long getId() {
