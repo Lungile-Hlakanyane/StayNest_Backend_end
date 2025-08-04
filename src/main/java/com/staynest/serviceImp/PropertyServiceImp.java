@@ -81,4 +81,25 @@ public class PropertyServiceImp implements PropertyService {
     public long countAllProperties() {
         return propertyRepository.count();
     }
+
+    @Override
+    public boolean blockProperty(Long id) {
+        Property property = propertyRepository.findById(id).orElse(null);
+        if (property == null) return false;
+        property.setBlocked(true);
+        propertyRepository.save(property);
+        return true;
+    }
+
+    @Override
+    public boolean unblockProperty(Long id) {
+        Optional<Property> optionalProperty = propertyRepository.findById(id);
+        if (optionalProperty.isPresent()) {
+            Property property = optionalProperty.get();
+            property.setBlocked(false);
+            propertyRepository.save(property);
+            return true;
+        }
+        return false;
+    }
 }

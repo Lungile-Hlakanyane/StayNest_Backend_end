@@ -14,6 +14,7 @@ public class PropertyMapper {
         property.setPrice(dto.getPrice());
         property.setDescription(dto.getDescription());
         property.setEmail(dto.getEmail());
+        property.setBlocked(dto.isBlocked());
         property.setPhoneNumber(dto.getPhoneNumber());
         property.setAmenities(dto.getAmenities());
         property.setUserId(dto.getUserId());

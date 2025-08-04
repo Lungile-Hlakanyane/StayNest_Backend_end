@@ -18,12 +18,24 @@ public class Property {
     @Lob
     private byte[] image;
     private Long userId;
+
+    @Column(nullable = false)
+    private boolean blocked = false;
+
+    public boolean isBlocked() {
+        return blocked;
+    }
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
     public Property(Long id,
                     String name, String location,
                     Double price, String description,
                     String email, String phoneNumber,
                     List<String> amenities, byte[] image,
-                    Long userId
+                    Long userId,
+                    boolean blocked
                     ) {
         this.id = id;
         this.name = name;
@@ -35,6 +47,7 @@ public class Property {
         this.amenities = amenities;
         this.image = image;
         this.userId = userId;
+        this.blocked = blocked;
     }
     public Property() {
     }

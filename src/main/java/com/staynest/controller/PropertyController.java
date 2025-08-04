@@ -1,5 +1,6 @@
 package com.staynest.controller;
 import com.staynest.DTO.PropertyDTO;
+import com.staynest.entity.CalendarSlot;
 import com.staynest.entity.Property;
 import com.staynest.service.PropertyService;
 import org.springframework.http.ResponseEntity;
@@ -76,4 +77,24 @@ public class PropertyController {
         long count = propertyService.countAllProperties();
         return ResponseEntity.ok(count);
     }
+
+    @PutMapping("/{id}/block")
+    public ResponseEntity<String> blockProperty(@PathVariable Long id) {
+        boolean result = propertyService.blockProperty(id);
+        if (result) {
+            return ResponseEntity.ok("Property blocked successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/{id}/unblock")
+    public ResponseEntity<String> unblockProperty(@PathVariable Long id) {
+        boolean result = propertyService.unblockProperty(id);
+        if (result) {
+            return ResponseEntity.ok("Property unblocked successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

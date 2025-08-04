@@ -12,4 +12,6 @@ public interface PropertyService {
     Property getPropertyById(Long id);
     boolean updateProperty(Long id, PropertyDTO dto);
     long countAllProperties();
+    boolean blockProperty(Long id);
+    boolean unblockProperty(Long id);
 }

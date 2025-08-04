@@ -11,8 +11,17 @@ public class PropertyDTO {
     private String phoneNumber;
     private List<String> amenities;
     private MultipartFile image;
-
     private Long userId;
+
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
+    private boolean blocked;
     public PropertyDTO() {
     }
 
@@ -24,7 +33,8 @@ public class PropertyDTO {
                        String phoneNumber,
                        List<String> amenities,
                        MultipartFile image,
-                       Long userId
+                       Long userId,
+                       boolean blocked
                        ) {
         this.name = name;
         this.location = location;
@@ -35,6 +45,7 @@ public class PropertyDTO {
         this.amenities = amenities;
         this.image = image;
         this.userId = userId;
+        this.blocked = blocked;
     }
 
     public Long getUserId() {
