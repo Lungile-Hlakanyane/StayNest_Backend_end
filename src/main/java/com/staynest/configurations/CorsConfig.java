@@ -23,7 +23,9 @@ public class CorsConfig {
                         .requestMatchers(
                                 "/api/**",
                                 "/api/auth/**",
-                                "/api/properties/**")
+                                "/api/properties/**",
+                                "/api/reports"
+                                )
                         .permitAll()
                         .anyRequest().authenticated()
                 );
