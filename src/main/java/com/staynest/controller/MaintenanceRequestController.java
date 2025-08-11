@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8100")
 @RestController
 @RequestMapping("/api/maintenance")
 public class MaintenanceRequestController {
-
     @Autowired
     private MaintenanceRequestService service;
     @PostMapping
@@ -18,5 +18,9 @@ public class MaintenanceRequestController {
     @GetMapping
     public List<MaintenanceRequestDTO> getAllRequests() {
         return service.getAllRequests();
+    }
+    @PatchMapping("/{id}/status")
+    public MaintenanceRequestDTO updateStatus(@PathVariable Long id, @RequestParam String status) {
+        return service.updateStatus(id, status);
     }
 }

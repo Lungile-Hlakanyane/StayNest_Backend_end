@@ -13,9 +13,26 @@ public class MaintenanceRequest {
     private String propertyName;
     private String tenantName;
     private LocalDate date;
+    private Long userId;
+    private String status = "In-Progress";
     public MaintenanceRequest() {
         this.date = LocalDate.now();
+        this.status = "In-Progress"; // default value
     }
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public Long getId() {
         return id;
     }

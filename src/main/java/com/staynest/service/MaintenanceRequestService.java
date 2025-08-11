@@ -5,4 +5,5 @@ import java.util.List;
 public interface MaintenanceRequestService {
     MaintenanceRequestDTO createRequest(MaintenanceRequestDTO dto);
     List<MaintenanceRequestDTO> getAllRequests();
+    MaintenanceRequestDTO updateStatus(Long requestId, String status);
 }

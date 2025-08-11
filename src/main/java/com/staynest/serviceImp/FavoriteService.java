@@ -1,6 +1,7 @@
 package com.staynest.serviceImp;
 import com.staynest.entity.Favorite;
 import com.staynest.repository.FavoriteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class FavoriteService {
             favoriteRepository.save(fav);
         }
     }
+    @Transactional
     public void removeFavorite(Long userId, Long propertyId) {
         favoriteRepository.deleteByUserIdAndPropertyId(userId, propertyId);
     }

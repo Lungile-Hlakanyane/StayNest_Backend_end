@@ -27,4 +27,12 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
                 .map(MaintenanceRequestMapper::toDTO)
                 .collect(Collectors.toList());
     }
+    @Override
+    public MaintenanceRequestDTO updateStatus(Long requestId, String status) {
+        MaintenanceRequest request = repository.findById(requestId)
+                .orElseThrow(() -> new RuntimeException("Request not found"));
+        request.setStatus(status);
+        repository.save(request);
+        return MaintenanceRequestMapper.toDTO(request);
+    }
 }

@@ -77,13 +77,11 @@ public class UserServiceImp implements UserService {
         System.out.println("Email received: " + email);
         System.out.println("Password received: " + password);
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
         System.out.println("DB password hash: " + user.getPassword());
-
-        if(user.isBlocked()){
+        if (user.isBlocked()) {
             throw new RuntimeException("User is blocked. Contact support.");
         }
-
         if (!user.isActive()) {
             throw new RuntimeException("Account is not activated. Please check your email.");
         }
@@ -93,6 +91,7 @@ public class UserServiceImp implements UserService {
         }
         return new LoginResponseDTO("Login successful", user.getRole(), user.getId());
     }
+
     @Override
     public UserDTO getUserById(Long id) {
         User user = userRepository.findById(id)
