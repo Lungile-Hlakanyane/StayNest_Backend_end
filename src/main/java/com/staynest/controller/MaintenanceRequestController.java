@@ -23,4 +23,8 @@ public class MaintenanceRequestController {
     public MaintenanceRequestDTO updateStatus(@PathVariable Long id, @RequestParam String status) {
         return service.updateStatus(id, status);
     }
+    @GetMapping("/count/{userId}")
+    public long countRequestsByUserId(@PathVariable Long userId) {
+        return service.countRequestsByUserId(userId);
+    }
 }

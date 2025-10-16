@@ -35,4 +35,8 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
         repository.save(request);
         return MaintenanceRequestMapper.toDTO(request);
     }
+    @Override
+    public long countRequestsByUserId(Long userId) {
+        return repository.countByUserId(userId);
+    }
 }

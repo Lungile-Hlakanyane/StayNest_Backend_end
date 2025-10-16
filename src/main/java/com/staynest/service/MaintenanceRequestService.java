@@ -6,4 +6,5 @@ public interface MaintenanceRequestService {
     MaintenanceRequestDTO createRequest(MaintenanceRequestDTO dto);
     List<MaintenanceRequestDTO> getAllRequests();
     MaintenanceRequestDTO updateStatus(Long requestId, String status);
+    long countRequestsByUserId(Long userId);
 }
