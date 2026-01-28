@@ -2,10 +2,7 @@ package com.staynest.controller;
 import com.staynest.DTO.BookingDTO;
 import com.staynest.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
@@ -17,5 +14,8 @@ public class BookingController {
     public List<BookingDTO> getBookingsByLandlordId(@PathVariable Long landlordId) {
         return bookingService.findByLandlordId(landlordId);
     }
-
+    @PutMapping("/{bookingId}/approve")
+    public void approveBooking(@PathVariable Long bookingId) {
+        bookingService.approveBooking(bookingId);
+    }
 }

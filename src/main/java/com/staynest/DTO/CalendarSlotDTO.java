@@ -13,13 +13,18 @@ public class CalendarSlotDTO {
     private User bookedBy;
     private User landlord;
     private String status;
+    private Boolean confirmed = false;
+    private Boolean reject = false;
+
     public CalendarSlotDTO(List<String> availabilityDates,
                            Integer maxGuests, String bookingPolicy,
                            Long propertyId, Long userId,
                            User bookedBy,
                            Long id,
                            String status,
-                           User landlord
+                           User landlord,
+                           Boolean confirmed,
+                           Boolean reject
                            ) {
         this.availabilityDates = availabilityDates;
         this.maxGuests = maxGuests;
@@ -30,6 +35,8 @@ public class CalendarSlotDTO {
         this.id = id;
         this.status = status;
         this.landlord = landlord;
+        this.confirmed = confirmed;
+        this.reject = reject;
     }
 
     public CalendarSlotDTO() {
@@ -105,5 +112,21 @@ public class CalendarSlotDTO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Boolean getConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    public Boolean getReject() {
+        return reject;
+    }
+
+    public void setReject(Boolean reject) {
+        this.reject = reject;
     }
 }

@@ -14,4 +14,5 @@ public interface CalendarSlotRepository extends JpaRepository<CalendarSlot, Long
     long countByLandlord_Id(Long landlordId);
     long countByStatusIgnoreCase(String status);
     List<CalendarSlot> findByStatus(String status);
+    List<CalendarSlot> findByLandlordId(Long landlordId);
 }

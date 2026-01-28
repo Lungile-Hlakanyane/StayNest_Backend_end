@@ -24,7 +24,12 @@ public class CorsConfig {
                                 "/api/properties/**",
                                 "/api/reports",
                                 "/api/favorites/remove",
-                                "/api/maintenance"
+                                "/api/maintenance",
+                                "/api/banner-images/user/**",
+                                "/api/banner-images",
+                                "/api/bookings/**",
+                                "/api/calendar-slots/**",
+                                "/api/ratings/**"
                                 )
                         .permitAll()
                         .anyRequest().authenticated()
@@ -39,7 +44,6 @@ public class CorsConfig {
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;

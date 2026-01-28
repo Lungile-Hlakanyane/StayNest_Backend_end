@@ -14,7 +14,6 @@ public class CalendarSlot {
     @ManyToOne
     @JoinColumn(name = "booked_by_id")
     private User bookedBy;
-
     @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
@@ -22,11 +21,16 @@ public class CalendarSlot {
     @JoinColumn(name = "landlord_id")
     private User landlord;
     private String status = "available";
+    private Boolean confirmed = false;
+    private Boolean reject  = false;
+
     public CalendarSlot(Long id, LocalDate availableDate,
                         Integer maxGuests, String bookingPolicy,
                         Property property, User landlord,
                         String status,
-                        User bookedBy
+                        User bookedBy,
+                        Boolean confirmed,
+                        Boolean reject
                         ) {
         this.id = id;
         this.availableDate = availableDate;
@@ -36,6 +40,8 @@ public class CalendarSlot {
         this.landlord = landlord;
         this.status = status;
         this.bookedBy = bookedBy;
+        this.confirmed = confirmed;
+        this.reject = reject;
     }
 
     public CalendarSlot() {
@@ -103,5 +109,21 @@ public class CalendarSlot {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Boolean getConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    public Boolean getReject() {
+        return reject;
+    }
+
+    public void setReject(Boolean reject) {
+        this.reject = reject;
     }
 }

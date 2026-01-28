@@ -11,4 +11,7 @@ public interface CalendarSlotService {
     long countSlotsByLandlordId(Long landlordId);
     long countAllBookedSlots();
     double calculateTotalEarnings();
+    void confirmSlot(Long slotId);
+    void rejectSlot(Long slotId);
+    List<CalendarSlot> getSlotsByLandlordId(Long landlordId);
 }

@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class CalendarSlotServiceImpl implements CalendarSlotService {
-
     private final CalendarSlotRepository calendarSlotRepository;
     private final CalendarSlotMapper calendarSlotMapper;
     private final PropertyRepository propertyRepository;
@@ -78,5 +77,25 @@ public class CalendarSlotServiceImpl implements CalendarSlotService {
                 .filter(slot -> slot.getProperty() != null)
                 .mapToDouble(slot -> slot.getProperty().getPrice())
                 .sum();
+    }
+    @Override
+    public void confirmSlot(Long slotId) {
+        CalendarSlot slot = calendarSlotRepository.findById(slotId)
+                .orElseThrow(() -> new RuntimeException("Slot not found"));
+        slot.setConfirmed(true);
+        calendarSlotRepository.save(slot);
+    }
+
+    @Override
+    public void rejectSlot(Long slotId) {
+        CalendarSlot slot = calendarSlotRepository.findById(slotId)
+                .orElseThrow(() -> new RuntimeException("Slot not found"));
+        slot.setReject(true);
+        calendarSlotRepository.save(slot);
+    }
+
+    @Override
+    public List<CalendarSlot> getSlotsByLandlordId(Long landlordId) {
+        return calendarSlotRepository.findByLandlordId(landlordId);
     }
 }

@@ -16,6 +16,15 @@ public class BookingDTO {
     private String propertyName;
     private String propertyLocation;
     private String imageUrl;
+    private Boolean approved = false;
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
 
     public String getPropertyName() {
         return propertyName;

@@ -20,6 +20,8 @@ public class CalendarSlotMapper {
                     slot.setProperty(property);
                     slot.setLandlord(landlord);
                     slot.setStatus("available");
+                    slot.setConfirmed(dto.getConfirmed());
+                    slot.setReject(dto.getReject());
                     return slot;
                 })
                 .collect(Collectors.toList());
@@ -32,8 +34,9 @@ public class CalendarSlotMapper {
         dto.setBookingPolicy(slot.getBookingPolicy());
         dto.setStatus(slot.getStatus());
         dto.setPropertyId(slot.getProperty().getId());
-//        dto.setLandlord(slot.getLandlord().getId());
-        dto.setAvailabilityDates(List.of(slot.getAvailableDate().toString())); // convert single date to list
+        dto.setAvailabilityDates(List.of(slot.getAvailableDate().toString()));
+        dto.setConfirmed(slot.getConfirmed());
+        dto.setReject(slot.getReject());
         return dto;
     }
 }

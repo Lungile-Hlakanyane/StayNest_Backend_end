@@ -63,5 +63,18 @@ public class CalendarSlotController {
     public List<CalendarSlot> getBookedSlots() {
         return calendarSlotRepository.findByStatus("booked");
     }
-
+    @PutMapping("/{slotId}/confirm")
+    public ResponseEntity<String> confirmSlot(@PathVariable Long slotId) {
+        calendarSlotService.confirmSlot(slotId);
+        return ResponseEntity.ok("Slot confirmed successfully");
+    }
+    @GetMapping("/landlord/{landlordId}")
+    public List<CalendarSlot> getSlotsByLandlordId(@PathVariable Long landlordId) {
+        return calendarSlotService.getSlotsByLandlordId(landlordId);
+    }
+    @PutMapping("/{slotId}/reject")
+    public ResponseEntity<String> rejectSlot(@PathVariable Long slotId){
+        calendarSlotService.rejectSlot(slotId);
+        return ResponseEntity.ok("Slot rejected successfully");
+    }
 }

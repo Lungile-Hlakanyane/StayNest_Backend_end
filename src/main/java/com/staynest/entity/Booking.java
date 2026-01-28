@@ -1,6 +1,5 @@
 package com.staynest.entity;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -16,6 +15,15 @@ public class Booking {
     private Long landlordId;
     private Long propertyId;
     private Long bookedById;
+    private Boolean approved = false;
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
 
     public Long getId() {
         return id;
